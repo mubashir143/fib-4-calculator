@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIB-4 Calculator (Live)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .result {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">FIB-4 Calculator)</h2>
+    <div class="card p-4 shadow">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="age" class="form-label">Age (years)</label>
+                <input type="number" class="form-control" id="age">
+            </div>
+            <div class="col-md-6">
+                <label for="ast" class="form-label">AST (U/L)</label>
+                <input type="number" class="form-control" id="ast">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="alt" class="form-label">ALT (U/L)</label>
+                <input type="number" class="form-control" id="alt">
+            </div>
+            <div class="col-md-6">
+                <label for="platelet" class="form-label">Platelet Count (×10⁹/L)</label>
+                <input type="number" class="form-control" id="platelet">
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p>FIB-4 Score:</p>
+            <p class="result text-success" id="fib4">--</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const age = document.getElementById("age");
+    const ast = document.getElementById("ast");
+    const alt = document.getElementById("alt");
+    const platelet = document.getElementById("platelet");
+    const output = document.getElementById("fib4");
+
+    function calculateFIB4() {
+        const ageVal = parseFloat(age.value);
+        const astVal = parseFloat(ast.value);
+        const altVal = parseFloat(alt.value);
+        const plateletVal = parseFloat(platelet.value);
+
+        if (ageVal > 0 && astVal > 0 && altVal > 0 && plateletVal > 0) {
+            const fib4 = (ageVal * astVal) / (plateletVal * Math.sqrt(altVal));
+            output.textContent = fib4.toFixed(2);
+        } else {
+            output.textContent = "--";
+        }
+    }
+
+    // Attach input event listeners for real-time updates
+    [age, ast, alt, platelet].forEach(input => {
+        input.addEventListener("input", calculateFIB4);
+    });
+</script>
+</body>
+</html>
